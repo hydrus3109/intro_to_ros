@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 class physicsSubscriber(Node):
     def __init__(self):
-        super().__init__("physics_subscriber")
+        super().__init__("physicssubscriber")
                 
         qos_profile = QoSProfile(
             history=QoSHistoryPolicy.KEEP_LAST,
@@ -27,8 +27,12 @@ class physicsSubscriber(Node):
             qos_profile
         )
         self.subscription
+        self.get_logger().info("starting subscriber node")
+
     def callback(self, msg):
+        self.get_logger().info("info receieved")
         self.sim_auv_motion(msg.x, msg.y, msg.theta)
+        self.get_logger().info("task completed")
     def calc_auv2_accel(self, T, alpha, theta, mass=100):
         """given a np array of forces in newtons, an alpha offset of the motor in radians, and a theta offset of the vehicle in radians, and the mass of the vehicle  in kgs, reutrns the a 2d array of the vehicle's accleration in m/s^2"""
         if mass <= 0:
@@ -73,7 +77,6 @@ class physicsSubscriber(Node):
             v = np.append(v, newv)
             omega = np.append(omega, newomega)
             newtheta = theta[-1] + omega[-2]* dt + 0.5 * angaccel * dt * dt
-            print(newtheta)
             theta = np.append(theta, newtheta)
             curang = newtheta
             newcoords = np.array([x[-1], y[-1]]) + v[-2]* dt + 0.5 * accel * dt * dt
