@@ -13,6 +13,8 @@
   <build_depend>matplotlib</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>mavros_msgs</build_depend>
+  <build_depend>time</build_depend>
+  <exec_depend>time</exec_depend>
   <exec_depend>mavros_msgs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>rclpy</exec_depend>

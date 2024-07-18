@@ -66,12 +66,12 @@ class ControlNode(Node):
 
     def open(self):
         velocity_command = TwistStamped()
-        velocity_command.twist.linear.x = 5  # Set the velocity based on PID output
+        velocity_command.twist.linear.x = 1.2  # Set the velocity based on PID output
         velocity_command.twist.angular.z = 0.0  # Ensure no rotational movement
 
         self.velocity_publisher.publish(velocity_command)
-        time.sleep(1)
-        velocity_command.twist.linear.x = 0 # Set the velocity based on PID output
+        time.sleep(5)
+        velocity_command.twist.linear.x = 0.0 # Set the velocity based on PID output
         self.velocity_publisher.publish(velocity_command)
 
 def main(args=None):

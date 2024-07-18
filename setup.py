@@ -24,8 +24,7 @@ setup(
                             'subscriber2 = intro_to_ros.bluerov2_sensors:main',
                             'physicssubscriber = intro_to_ros.physics_sim:main',
                             'drivepub = intro_to_ros.rovdrive:main',
-                            'arm = intro_to_ros.arm:main',
-                            'disarm = intro_to_ros.disarm:main'
+                            'armdisarm = intro_to_ros.armdisarm:main'
         ],
     },
 )

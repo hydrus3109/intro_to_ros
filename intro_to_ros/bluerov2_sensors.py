@@ -83,7 +83,6 @@ class ROV_sensors(Node):
     def imu_callback(self, msg): 
         self.imu_data = msg
         self.get_logger().info(f"IMU Linear acceleration: {self.imu_data.linear_acceleration}")
-    def depth_calc(self):
     
 def main(args=None):
     rclpy.init(args=args)
