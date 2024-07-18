@@ -110,9 +110,7 @@ class physicsSubscriber(Node):
                 )
             )
             
-        
-
-        plt.savefig("plot.png")
+        plt.savefig("/home/aidan/auvc_ws/src/intro_to_ros/intro_to_ros/plot.png")
         
 def main(args=None):
     rclpy.init(args=args)
