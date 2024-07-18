@@ -6,6 +6,7 @@ from geometry_msgs.msg import TwistStamped
 from nav_msgs.msg import Odometry
 from rclpy.qos import QoSProfile, QoSHistoryPolicy, QoSReliabilityPolicy, QoSDurabilityPolicy
 from geometry_msgs.msg import Vector3
+import time
 
 class PIDController:
     def __init__(self, kp, ki, kd, max_integral, min_output, max_output):
@@ -47,7 +48,8 @@ class ControlNode(Node):
         self.target_distance = 3.0  # Target distance in meters
         self.pid = PIDController(kp=0.5, ki=0.1, kd=0.05, max_integral=0.2, min_output=-2.0, max_output=2.0)
         self.current_distance = 0.0
-        self.timer = self.create_timer(0.1, self.control_loop)  # Control loop at 10 Hz
+        #self.timer = self.create_timer(0.1, self.control_loop)  # Control loop at 10 Hz
+        self.open()
 
     def distance_callback(self, msg):
         self.current_distance = msg.pose.pose.position.x
@@ -61,6 +63,16 @@ class ControlNode(Node):
         velocity_command.twist.angular.z = 0.0  # Ensure no rotational movement
         self.velocity_publisher.publish(velocity_command)
         self.get_logger().info(f'Velocity Command: {correction:.2f} m/s')
+
+    def open(self):
+        velocity_command = TwistStamped()
+        velocity_command.twist.linear.x = 5  # Set the velocity based on PID output
+        velocity_command.twist.angular.z = 0.0  # Ensure no rotational movement
+
+        self.velocity_publisher.publish(velocity_command)
+        time.sleep(1)
+        velocity_command.twist.linear.x = 0 # Set the velocity based on PID output
+        self.velocity_publisher.publish(velocity_command)
 
 def main(args=None):
     rclpy.init(args=args)
