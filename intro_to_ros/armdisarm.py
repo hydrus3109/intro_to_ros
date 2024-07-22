@@ -19,8 +19,8 @@ class ROVArmer(Node):
         """ Sends a command to arm or disarm the ROV based on the bool given"""
         req = CommandBool.Request()
         req.value = arm  # True to arm, False to disarm
-        self.future = self.arm_client.call_async(req)
-        self.future.add_done_callback(self.arm_response_callback)
+        self.arm_future = self.arm_client.call_async(req)
+        self.arm_future.add_done_callback(self.arm_response_callback)
 
     def arm_response_callback(self, future):
         """

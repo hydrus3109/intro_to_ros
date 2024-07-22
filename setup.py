@@ -25,7 +25,9 @@ setup(
                             'subscriber2 = intro_to_ros.bluerov2_sensors:main',
                             'physicssubscriber = intro_to_ros.physics_sim:main',
                             'drivepub = intro_to_ros.rovdrive:main',
-                            'armdisarm = intro_to_ros.armdisarm:main'
+                            'armdisarm = intro_to_ros.armdisarm:main',
+                            'manual = intro_to_ros.mode:main',
+                            'dance = intro_to_ros.dance:main'
         ],
     },
 )
