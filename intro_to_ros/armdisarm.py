@@ -40,12 +40,11 @@ def main(args=None):
     node = ROVArmer()
     try:
         node.send_command(True)
-        time.sleep(5)
-        node.send_command(False)
         rclpy.spin(node)
     except KeyboardInterrupt:
         print("\nKeyboardInterrupt received, shutting down...")
     finally:
+        node.send_command(False)
         node.destroy_node()
         if rclpy.ok():
             rclpy.shutdown()
