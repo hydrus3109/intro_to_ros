@@ -1,0 +1,11 @@
+1	Pitch
+2	Roll
+3	Throttle
+4	Yaw
+5	Forward
+6	Lateral
+7	Camera Pan
+8	Camera Tilt*
+9	Lights 1 Level
+10	Lights 2 Level
+11	Video Switch

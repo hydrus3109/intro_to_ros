@@ -53,8 +53,7 @@ class PIDController:
 class RovArmDisarmNode(Node):
     def __init__(self):
         super().__init__('arm_disarm')
-        
-        #Initalize Client to arm+disarm
+        """initalizes client to arm/disarm"""
         self.arm_client = self.create_client(CommandBool, '/mavros/cmd/arming')
         while not self.arm_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('/mavros/cmd/arming service not available, waiting again...')
@@ -106,24 +105,30 @@ class ModeNode(Node):
 
 class MoveNode(Node):
     def __init__(self):
-        super().__init__("motor_publisher") #Node name
+        super().__init__("motor_publisher") #Node naame
+        """
+        inits the publisher for override
+        """
         self.publisher = self.create_publisher(
             OverrideRCIn, #Type of message that's boreadcasted
             "/mavros/rc/override", #Topic name
             10
         )
+
+        # Initialize PID controllers
+        """
         #self.imu_subscription = self.create_subscription(Imu, '/mavros/imu/data', self.imu_callback, 10)
-       # self.depth_subscription = self.create_subscription(Float32, '/mavros/depth', self.depth_callback, 10)
+        #self.depth_subscription = self.create_subscription(Float32, '/mavros/depth', self.depth_callback, 10)
         
         self.current_yaw = 0.0
         self.current_depth = 0.0
-
-        # Initialize PID controllers
         self.pid_yaw = PIDController(0.5, 0.1, 0.05, 5.0, -100, 100)
         self.pid_depth = PIDController(0.5, 0.1, 0.05, 5.0, -100, 100)
-        self.time = self.create_timer(0.5, self.Move_lateral)
-        self.get_logger().info("starting publisher node") #Log in the terminal "starting publisher node"
-        #self.Move_lateral()
+        """
+
+        #calls chachaslide function
+        self.get_logger().info("starting publisher node")
+        self.chachaslide()
     def imu_callback(self, msg):
         # Extract yaw from quaternion
         orientation_q = msg.orientation
