@@ -54,7 +54,7 @@ class RovArmDisarmNode(Node):
     def __init__(self):
         super().__init__('arm_disarm')
         """initalizes client to arm/disarm"""
-        self.arm_client = self.create_client(CommandBool, '/mavros/cmd/arming')
+        self.arm_client = self.create_client(CommandBool, 'bluerov2/arm')
         while not self.arm_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('/mavros/cmd/arming service not available, waiting again...')
 
@@ -111,7 +111,7 @@ class MoveNode(Node):
         """
         self.publisher = self.create_publisher(
             OverrideRCIn, #Type of message that's boreadcasted
-            "/mavros/rc/override", #Topic name
+            'bluerov2/override_rc', #Topic name
             10
         )
 
