@@ -62,15 +62,15 @@ class ArmingDisarmingNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     armingNode = ArmingDisarmingNode()
-
+    
     try:
-        armingNode.dance()
         while rclpy.ok():
+            armingNode.arm()
             rclpy.spin_once(armingNode)
             if armingNode.done:
                 break
         
-        sleep(60)
+        sleep(120)
     except KeyboardInterrupt:
         pass
     finally:
